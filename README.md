@@ -1,4 +1,4 @@
-# Generic Arduino proxy for Can Deserilization
+# Generic Arduino proxy for Can Deserilization(pinIS)
 
 This code is supposed to be a temporary way to read from can and send the info to the banana pi or embedded computer that will read the info and display it graphically, it also has a secondary function of sending some telemetry but that will be studied
 
