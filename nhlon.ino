@@ -24,7 +24,7 @@ typedef union  {
 EncodingUnion g_OilPressure; 
 
 String bsonW="\xFF\xFF\xFF\xFF";
-int period=15;
+int period=500;
 BSONObjBuilder bob;
 void simulateCAN(){
 	g_OilPressure.encodedValue +=10;
@@ -54,16 +54,16 @@ void setup() {
 	delay(3000);
 	bob.append("rpm", (int32_t)RPM);
 	bob.append("bat_voltage", (int32_t)g_OilPressure.encodedValue); //float 
-	//bob.append("oil_temp",  (int32_t)g_OilPressure.encodedValue); //float
-	//bob.append("oil_press",  (int32_t)g_OilPressure.encodedValue); //float
-	//bob.append("eng_temp", (int32_t) RPM);
-	//bob.append("velocity", (int32_t) RPM);
-	//bob.append("af_ratio", (int32_t)g_OilPressure.encodedValue);
-	//bob.append("gear", (int32_t) GEAR);
-	//bob.append("dl_status", (int32_t) RPM);
-	//bob.append("tc_slip", (int32_t) RPM);
-	//bob.append("tc_launch", (int32_t) RPM);
-   
+	bob.append("oil_temp",  (int32_t)g_OilPressure.encodedValue); //float
+	bob.append("oil_press",  (int32_t)g_OilPressure.encodedValue); //float
+	/*bob.append("eng_temp", (int32_t) RPM);
+	bob.append("velocity", (int32_t) RPM);
+	bob.append("af_ratio", (int32_t)g_OilPressure.encodedValue);
+	bob.append("gear", (int32_t) GEAR);
+	bob.append("dl_status", (int32_t) RPM);
+	bob.append("tc_slip", (int32_t) RPM);
+	bob.append("tc_launch", (int32_t) RPM);*/
+	delay(3000);
 }
 void loop(){
 	BSONObject bo =bob.obj();
@@ -77,9 +77,9 @@ void loop(){
 		simulateCAN();
 		bo.updateField("rpm",RPM);
 		bo.updateField("bat_voltage",(int32_t)g_OilPressure.encodedValue); 
-		/*bo.updateField("oil_temp",(int32_t)g_OilPressure.encodedValue);
+		bo.updateField("oil_temp",(int32_t)g_OilPressure.encodedValue);
 		bo.updateField("oil_press",(int32_t)g_OilPressure.encodedValue);
-	  	bo.updateField("eng_temp",(int32_t)RPM);
+	  	/*bo.updateField("eng_temp",(int32_t)RPM);
 		bo.updateField("velocity",(int32_t)RPM);
 		bo.updateField("af_ratio",(int32_t)g_OilPressure.encodedValue);
 		bo.updateField("gear",(int32_t)GEAR);
