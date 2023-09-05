@@ -58,9 +58,9 @@ void setup() {
 	bob.append("oil_press",  (int32_t)g_OilPressure.encodedValue); //float
 	bob.append("eng_temp", (int32_t) RPM);
 	bob.append("velocity", (int32_t) RPM);
-	/*bob.append("af_ratio", (int32_t)g_OilPressure.encodedValue);
-	bob.append("gear", (int32_t) GEAR);
-	bob.append("dl_status", (int32_t) RPM);
+	bob.append("af_ratio", (int32_t)g_OilPressure.encodedValue);
+	//bob.append("gear", (int32_t) GEAR);
+	/*bob.append("dl_status", (int32_t) RPM);
 	bob.append("tc_slip", (int32_t) RPM);
 	bob.append("tc_launch", (int32_t) RPM);*/
 	delay(3000);
@@ -81,9 +81,9 @@ void loop(){
 		bo.updateField("oil_press",(int32_t)g_OilPressure.encodedValue);
 	  	bo.updateField("eng_temp",(int32_t)RPM);
 		bo.updateField("velocity",(int32_t)RPM);
-		/*bo.updateField("af_ratio",(int32_t)g_OilPressure.encodedValue);
-		bo.updateField("gear",(int32_t)GEAR);
-		bo.updateField("dl_status",(int32_t)RPM);
+		bo.updateField("af_ratio",(int32_t)g_OilPressure.encodedValue);
+		//bo.updateField("gear",(int32_t)GEAR);
+		/*bo.updateField("dl_status",(int32_t)RPM);
 		bo.updateField("tc_slip",(int32_t)RPM); 
 		bo.updateField("tc_launch",(int32_t)RPM);*/
 	  
