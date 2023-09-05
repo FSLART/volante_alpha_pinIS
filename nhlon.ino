@@ -8,6 +8,18 @@
 #include <ardubsonObjBuilder.h>
 #include <ardubsonElement.h>
 
+#define BSON_RPM "rpm"
+#define BSON_GEARSHIFT "gear"
+#define BSON_ENGINETEMPERATURE "eng_t"
+#define BSON_OILPRESSURE "oil_p"
+#define BSON_OILTEMPERATURE "oil_t"
+#define BSON_BATTERYVOLTAGE "bat_v"
+#define BSON_VEHICLESPEED "vel"
+#define BSON_DATALOGGERSTATUS "dtl_s"
+#define BSON_AFR "af_r"
+#define BSON_TCSLIP "tc_s"
+#define BSON_TCLAUNCH "tc_l"
+
 int32_t RPM=0;
 int32_t ET = 0, POT;
 float OP = 0;
@@ -52,17 +64,17 @@ void setup() {
 	Serial.begin(115200);
 
 	delay(3000);
-	bob.append("rpm", (int32_t)RPM);
-	bob.append("bat_voltage", (int32_t)g_OilPressure.encodedValue); //float 
-	bob.append("oil_temp",  (int32_t)g_OilPressure.encodedValue); //float
-	bob.append("oil_press",  (int32_t)g_OilPressure.encodedValue); //float
-	bob.append("eng_temp", (int32_t) RPM);
-	bob.append("velocity", (int32_t) RPM);
-	bob.append("af_ratio", (int32_t)g_OilPressure.encodedValue);
-	bob.append("gear", (int32_t) GEAR);
-	bob.append("dl_status", (int32_t) RPM);
-	/*bob.append("tc_slip", (int32_t) RPM);
-	bob.append("tc_launch", (int32_t) RPM);*/
+	bob.append(BSON_RPM, (int32_t)RPM);
+	bob.append(BSON_BATTERYVOLTAGE, (int32_t)g_OilPressure.encodedValue); //float 
+	bob.append(BSON_OILTEMPERATURE,  (int32_t)g_OilPressure.encodedValue); //float
+	bob.append(BSON_OILPRESSURE,  (int32_t)g_OilPressure.encodedValue); //float
+	bob.append(BSON_ENGINETEMPERATURE, (int32_t) RPM);
+	bob.append(BSON_VEHICLESPEED, (int32_t) RPM);
+	bob.append(BSON_AFR, (int32_t)g_OilPressure.encodedValue);
+	bob.append(BSON_GEARSHIFT, (int32_t) GEAR);
+	bob.append(BSON_DATALOGGERSTATUS, (int32_t) RPM);
+	bob.append(BSON_TCSLIP, (int32_t) RPM);
+	bob.append(BSON_TCLAUNCH, (int32_t) RPM);
 	delay(3000);
 }
 void loop(){
@@ -75,17 +87,17 @@ void loop(){
 	*/ 
 	if(millist-milliss>=period){
 		simulateCAN();
-		bo.updateField("rpm",RPM);
-		bo.updateField("bat_voltage",(int32_t)g_OilPressure.encodedValue); 
-		bo.updateField("oil_temp",(int32_t)g_OilPressure.encodedValue);
-		bo.updateField("oil_press",(int32_t)g_OilPressure.encodedValue);
-	  	bo.updateField("eng_temp",(int32_t)RPM);
-		bo.updateField("velocity",(int32_t)RPM);
-		bo.updateField("af_ratio",(int32_t)g_OilPressure.encodedValue);
-		bo.updateField("gear",(int32_t)GEAR);
-		bo.updateField("dl_status",(int32_t)RPM);
-		/*bo.updateField("tc_slip",(int32_t)RPM); 
-		bo.updateField("tc_launch",(int32_t)RPM);*/
+		bo.updateField(BSON_RPM ,RPM);
+		bo.updateField(BSON_BATTERYVOLTAGE ,(int32_t)g_OilPressure.encodedValue); 
+		bo.updateField(BSON_OILTEMPERATURE ,(int32_t)g_OilPressure.encodedValue);
+		bo.updateField(BSON_OILPRESSURE ,(int32_t)g_OilPressure.encodedValue);
+	  	bo.updateField(BSON_ENGINETEMPERATURE ,(int32_t)RPM);
+		bo.updateField(BSON_VEHICLESPEED ,(int32_t)RPM);
+		bo.updateField(BSON_AFR ,(int32_t)g_OilPressure.encodedValue);
+		bo.updateField(BSON_GEARSHIFT ,(int32_t)GEAR);
+		bo.updateField(BSON_DATALOGGERSTATUS ,(int32_t)RPM);
+		bo.updateField(BSON_TCSLIP,(int32_t)RPM); 
+		bo.updateField(BSON_TCLAUNCH,(int32_t)RPM);
 	  
 		Serial.print(bsonW);
 		Serial.write(bo.rawData(), a);
