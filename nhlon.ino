@@ -61,9 +61,11 @@ void simulateCAN(){
 
 void setup() {
 	// Setup serial port
-	Serial.begin(115200);
-
-	delay(3000);
+	//8 bit, Odd parity and 1 bit for stop
+	Serial.begin(115200,SERIAL_8O1);
+	//set odd parity for arduino 
+	
+	delay(2000);
 	bob.append(BSON_RPM, (int32_t)RPM);
 	bob.append(BSON_BATTERYVOLTAGE, (int32_t)g_OilPressure.encodedValue); //float 
 	bob.append(BSON_OILTEMPERATURE,  (int32_t)g_OilPressure.encodedValue); //float
@@ -75,7 +77,7 @@ void setup() {
 	bob.append(BSON_DATALOGGERSTATUS, (int32_t) RPM);
 	bob.append(BSON_TCSLIP, (int32_t) RPM);
 	bob.append(BSON_TCLAUNCH, (int32_t) RPM);
-	delay(3000);
+	delay(100);
 }
 void loop(){
 	BSONObject bo =bob.obj();
