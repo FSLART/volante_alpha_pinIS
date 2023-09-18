@@ -78,7 +78,7 @@ void setup() {
 	Serial.begin(115200,SERIAL_8O1);
 	//set odd parity for arduino 
 	
-	  delay(2000);
+	  //delay(2000);
     bob.append(BSON_RPM, (int32_t)RPM);
     bob.append(BSON_BATTERYVOLTAGE, (int32_t)g_OilPressure.encodedValue); //float 
     bob.append(BSON_ENGINETEMPERATURE, (int32_t) RPM);
@@ -97,15 +97,18 @@ void setup() {
   	bob.append(BSON_SOC, g_OilPressure.encodedValue); 
     bob.append(BSON_BATTERYTEMPERATURE, g_OilPressure.encodedValue);
     bob.append(BSON_INVERTERTEMPERATURE , (int32_t)RPM); 
-    bob.append(BSON_POWER , (int)GEAR);
-    bob.append(BSON_LAPCOUNT, (int)GEAR);
+    bob.append(BSON_POWER , (int32_t)GEAR);
+    bob.append(BSON_LAPCOUNT, (int32_t)GEAR);
     bob.append(BSON_LAPTIME,(int32_t)timeSinceStart);
   #endif
 	
 	delay(100);
 }
 void loop(){
-	timeSinceStart+=millis(); 
+	timeSinceStart=millis();
+  if (timeSinceStart>9400&&timeSinceStart<9900){
+    timeSinceStart-=20000;
+  }
 	BSONObject bo =bob.obj();
 	int a =  bo.len();
    
@@ -130,8 +133,8 @@ void loop(){
 		bo.updateField(BSON_SOC, g_OilPressure.encodedValue); 
 		bo.updateField(BSON_BATTERYTEMPERATURE, g_OilPressure.encodedValue);
 		bo.updateField(BSON_INVERTERTEMPERATURE, (int32_t)RPM); 
-		bo.updateField(BSON_POWER, (int)GEAR);
-		bo.updateField(BSON_LAPCOUNT , (int)GEAR);
+		bo.updateField(BSON_POWER, (int32_t)GEAR);
+		bo.updateField(BSON_LAPCOUNT , (int32_t)GEAR);
 		bo.updateField(BSON_LAPTIME,(int32_t)timeSinceStart);
 	#endif
 		
